@@ -72,11 +72,11 @@ public class dominoes : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         _moduleId = _moduleIdCounter++;
         StartModule();
-	}
+    }
 
 
 
@@ -91,7 +91,7 @@ public class dominoes : MonoBehaviour
 
 
 
-                             // Domino press event handlers :
+    // Domino press event handlers :
 
     bool[] DomPressed = new bool[4];
 
@@ -104,7 +104,7 @@ public class dominoes : MonoBehaviour
             Debug.LogFormat("[Dominoes #{0}] You pressed domino 1. ", _moduleId);
             DomPressed[0] = true;
         }
-        
+
     }
 
     void DomTwo()
@@ -171,7 +171,7 @@ public class dominoes : MonoBehaviour
         {
             calctype = 1;
             int j = 0;
-            for (int i = 0; i<8; i += 2)
+            for (int i = 0; i < 8; i += 2)
             {
                 domanswers[j] = domnums[i] + domnums[i + 1];
                 j++;
@@ -181,7 +181,7 @@ public class dominoes : MonoBehaviour
         {
             calctype = 2;
             int j = 0;
-            for (int i = 0; i<8; i+= 2)
+            for (int i = 0; i < 8; i += 2)
             {
                 domanswers[j] = domnums[i] - domnums[i + 1];
                 j++;
@@ -207,16 +207,16 @@ public class dominoes : MonoBehaviour
                 {
                     domnums[i + 1] = domnums[i];        //and if true then sets the dividers to the same number so the result is 1
                     maindomtxt[i + 1].text = "";
-                    for (int x = 0; x<domnums[i+1]; x++)
+                    for (int x = 0; x < domnums[i + 1]; x++)
                     {
-                        if (maindomtxt[i+1].text.Length == 3)
+                        if (maindomtxt[i + 1].text.Length == 3)
                         {
-                            maindomtxt[i+1].text += System.Environment.NewLine;
+                            maindomtxt[i + 1].text += System.Environment.NewLine;
                         }
-                        maindomtxt[i+1].text += "•";        //and updates the displayed text
+                        maindomtxt[i + 1].text += "•";        //and updates the displayed text
                     }
                 }
-                 
+
                 domanswers[j] = domnums[i + 1] / domnums[i];
                 j++;
             }
@@ -351,7 +351,7 @@ public class dominoes : MonoBehaviour
 
                 if (calctype == 1)
                 {
-                    if (domnums[i+1] + domnums[i] == sortedansw[k])
+                    if (domnums[i + 1] + domnums[i] == sortedansw[k])
                     {
                         correctpressorder += j.ToString();
                         continue;
@@ -395,11 +395,11 @@ public class dominoes : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            Debug.Log("DomNum's are " + domnums[i] + "  for position: " + (i+1));
+            Debug.Log("DomNum's are " + domnums[i] + "  for position: " + (i + 1));
         }
         for (int i = 0; i < 4; i++)
         {
-            Debug.Log("DomAnswers are " + domanswers[i] + "  for number  :" + (i+1));
+            Debug.Log("DomAnswers are " + domanswers[i] + "  for number  :" + (i + 1));
         }
     }
 
@@ -413,40 +413,45 @@ public class dominoes : MonoBehaviour
     private bool toppling = true;
     private bool dompressed = false;
 
-    private const float xrot = 75f, y = 0.001f, z = 0.01f, hxrot = xrot / 2f, hy = y / 2f, hz = z / 2f;
+    private const float xrot = 75f, y = -0.01f, z = 0.008f, hxrot = xrot / 2f, hy = y / 2f, hz = z / 2f;
     private const int range = 1;
 
     IEnumerator ToppleDominoes(int row)                //A coroutine which "topples" the dominoes.
     {
-            for (int i = 7; i > -1; i--)
+        for (int i = 7; i > -1; i--)
+        {
+            if (row == 1 && toppledrow[0] == false)
             {
-                if (row == 1 && toppledrow[0] == false)
-                {
-                if (i==7)
+                if (i == 7)
                 {
                     highlights[0].SetActive(false);
                 }
                 dompressed = true;
                 for (int k = 0; k < range; k++)
                 {
-                    if (i==7)
+                    if (i == 7)
                     {
                         fdr1trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        fdr1trans[i].Translate(new Vector3(0f, y, z));
-                        fdr1trans[i-1].Rotate(new Vector3(hxrot , 0, 0));
-                        fdr1trans[i-1].Translate(new Vector3(0f, hy, hz));
+                        //fdr1trans[i].Translate(new Vector3(0f, y, z));
+                        fdr1trans[i].localPosition += new Vector3(0f, y, z);
+                        fdr1trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
+                        //fdr1trans[i-1].Translate(new Vector3(0f, hy, hz));
+                        fdr1trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
-                    else if (i==0)
+                    else if (i == 0)
                     {
                         fdr1trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr1trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr1trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr1trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr1trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr1trans[i].Translate(new Vector3(0f, hy, hz));
-                        fdr1trans[i-1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr1trans[i-1].Translate(new Vector3(0f, hy, hz));
+                        //fdr1trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr1trans[i].localPosition += new Vector3(0f, hy, hz);
+                        fdr1trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
+                        //fdr1trans[i-1].Translate(new Vector3(0f, hy, hz));
+                        fdr1trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
                 }
@@ -456,11 +461,11 @@ public class dominoes : MonoBehaviour
                     toppledrow[0] = true;
                 }
                 dompressed = false;
-                }
+            }
 
 
-                else if (row == 2 && toppledrow[1] == false)
-                {
+            else if (row == 2 && toppledrow[1] == false)
+            {
                 if (i == 7)
                 {
                     highlights[1].SetActive(false);
@@ -471,21 +476,26 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr2trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        fdr2trans[i].Translate(new Vector3(0f, y, z));
+                        //fdr2trans[i].Translate(new Vector3(0f, y, z));
+                        fdr2trans[i].localPosition += new Vector3(0f, y, z);
                         fdr2trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr2trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        //fdr2trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        fdr2trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr2trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr2trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr2trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr2trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr2trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr2trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr2trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr2trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr2trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr2trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        //fdr2trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        fdr2trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
                 }
@@ -498,8 +508,8 @@ public class dominoes : MonoBehaviour
             }
 
 
-                else if (row == 3 && toppledrow[2] == false)
-                {
+            else if (row == 3 && toppledrow[2] == false)
+            {
                 if (i == 7)
                 {
                     highlights[2].SetActive(false);
@@ -510,21 +520,26 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr3trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        fdr3trans[i].Translate(new Vector3(0f, y, z));
+                        //fdr3trans[i].Translate(new Vector3(0f, y, z));
+                        fdr3trans[i].localPosition += new Vector3(0f, y, z);
                         fdr3trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr3trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        //fdr3trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        fdr3trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr3trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr3trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr3trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr3trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr3trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr3trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr3trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr3trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr3trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr3trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        //fdr3trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        fdr3trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
                 }
@@ -537,8 +552,8 @@ public class dominoes : MonoBehaviour
             }
 
 
-                else if (row == 4 && toppledrow[3] == false)
-                {
+            else if (row == 4 && toppledrow[3] == false)
+            {
                 if (i == 7)
                 {
                     highlights[3].SetActive(false);
@@ -549,21 +564,26 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr4trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        fdr4trans[i].Translate(new Vector3(0f, y, z));
+                        //fdr4trans[i].Translate(new Vector3(0f, y, z));
+                        fdr4trans[i].localPosition += new Vector3(0f, y, z);
                         fdr4trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr4trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        //fdr4trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        fdr4trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr4trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr4trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr4trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr4trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr4trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr4trans[i].Translate(new Vector3(0f, hy, hz));
+                        //fdr4trans[i].Translate(new Vector3(0f, hy, hz));
+                        fdr4trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr4trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        fdr4trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        //fdr4trans[i - 1].Translate(new Vector3(0f, hy, hz));
+                        fdr4trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
                 }
@@ -574,7 +594,7 @@ public class dominoes : MonoBehaviour
                 }
                 dompressed = false;
             }
-            }
+        }
         if (toppledrow[0] == true && toppledrow[1] == true && toppledrow[2] == true && toppledrow[3] == true)
         {
             yield return new WaitForSeconds(0.01f);
@@ -599,20 +619,28 @@ public class dominoes : MonoBehaviour
         }
         for (int i = 7; i > -1; i--)
         {
-            if (i==7)
-            {
-                fdr1trans[i].Translate(new Vector3(0f, -y, -z));
-                fdr2trans[i].Translate(new Vector3(0f, -y, -z));
-                fdr3trans[i].Translate(new Vector3(0f, -y, -z));
-                fdr4trans[i].Translate(new Vector3(0f, -y, -z));
-            }
+            //if (i == 7)
+            //{
+                //fdr1trans[i].Translate(new Vector3(0f, -y, -z));
+                //fdr2trans[i].Translate(new Vector3(0f, -y, -z));
+                //fdr3trans[i].Translate(new Vector3(0f, -y, -z));
+                //fdr4trans[i].Translate(new Vector3(0f, -y, -z));
+                fdr1trans[i].localPosition += new Vector3(0f, -y, -z);
+                fdr2trans[i].localPosition += new Vector3(0f, -y, -z);
+                fdr3trans[i].localPosition += new Vector3(0f, -y, -z);
+                fdr4trans[i].localPosition += new Vector3(0f, -y, -z);
+            /*}
             else
             {
-                fdr1trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                fdr2trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                fdr3trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                fdr4trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-            }
+                //fdr1trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
+                //fdr2trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
+                //fdr3trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
+                //fdr4trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
+                fdr1trans[i].localPosition += new Vector3(0f, -hy, -hz);
+                fdr2trans[i].localPosition += new Vector3(0f, -hy, -hz);
+                fdr3trans[i].localPosition += new Vector3(0f, -hy, -hz);
+                fdr4trans[i].localPosition += new Vector3(0f, -hy, -hz);
+            }*/
             fdr1trans[i].Rotate(new Vector3(-xrot, 0f, 0f));
             fdr2trans[i].Rotate(new Vector3(-xrot, 0f, 0f));
             fdr3trans[i].Rotate(new Vector3(-xrot, 0f, 0f));
@@ -625,18 +653,18 @@ public class dominoes : MonoBehaviour
 
         correctpressorder = "";
 
-        for (int i=0; i<4; i++)
+        for (int i = 0; i < 4; i++)
         {
             highlights[i].SetActive(true);
         }
 
 
-        for (int i=0; i<4; i++)
+        for (int i = 0; i < 4; i++)
         {
             toppledrow[i] = false;
         }
 
-        for (int i=0; i<4; i++)
+        for (int i = 0; i < 4; i++)
         {
             DomPressed[i] = false;
         }
@@ -650,9 +678,9 @@ public class dominoes : MonoBehaviour
 
     IEnumerator RedFlashButtons()
     {
-        for (int i = 0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for (int k = 0; k<4; k++)
+            for (int k = 0; k < 4; k++)
             {
                 buttons[k].GetComponentInChildren<MeshRenderer>().material = Mats[1];
                 yield return new WaitForSeconds(0.01f);
