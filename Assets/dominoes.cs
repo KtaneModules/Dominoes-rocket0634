@@ -432,25 +432,20 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr1trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        //fdr1trans[i].Translate(new Vector3(0f, y, z));
                         fdr1trans[i].localPosition += new Vector3(0f, y, z);
                         fdr1trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr1trans[i-1].Translate(new Vector3(0f, hy, hz));
                         fdr1trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr1trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr1trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr1trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr1trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr1trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr1trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr1trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr1trans[i-1].Translate(new Vector3(0f, hy, hz));
                         fdr1trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
@@ -476,25 +471,20 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr2trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        //fdr2trans[i].Translate(new Vector3(0f, y, z));
                         fdr2trans[i].localPosition += new Vector3(0f, y, z);
                         fdr2trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr2trans[i - 1].Translate(new Vector3(0f, hy, hz));
                         fdr2trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr2trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr2trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr2trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr2trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr2trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr2trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr2trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr2trans[i - 1].Translate(new Vector3(0f, hy, hz));
                         fdr2trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
@@ -520,25 +510,20 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr3trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        //fdr3trans[i].Translate(new Vector3(0f, y, z));
                         fdr3trans[i].localPosition += new Vector3(0f, y, z);
                         fdr3trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr3trans[i - 1].Translate(new Vector3(0f, hy, hz));
                         fdr3trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr3trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr3trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr3trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr3trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr3trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr3trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr3trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr3trans[i - 1].Translate(new Vector3(0f, hy, hz));
                         fdr3trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
@@ -564,25 +549,20 @@ public class dominoes : MonoBehaviour
                     if (i == 7)
                     {
                         fdr4trans[i].Rotate(new Vector3(xrot, 0, 0));
-                        //fdr4trans[i].Translate(new Vector3(0f, y, z));
                         fdr4trans[i].localPosition += new Vector3(0f, y, z);
                         fdr4trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr4trans[i - 1].Translate(new Vector3(0f, hy, hz));
                         fdr4trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     else if (i == 0)
                     {
                         fdr4trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr4trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr4trans[i].localPosition += new Vector3(0f, hy, hz);
                     }
                     else
                     {
                         fdr4trans[i].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr4trans[i].Translate(new Vector3(0f, hy, hz));
                         fdr4trans[i].localPosition += new Vector3(0f, hy, hz);
                         fdr4trans[i - 1].Rotate(new Vector3(hxrot, 0, 0));
-                        //fdr4trans[i - 1].Translate(new Vector3(0f, hy, hz));
                         fdr4trans[i - 1].localPosition += new Vector3(0f, hy, hz);
                     }
                     yield return null;
@@ -619,28 +599,10 @@ public class dominoes : MonoBehaviour
         }
         for (int i = 7; i > -1; i--)
         {
-            //if (i == 7)
-            //{
-                //fdr1trans[i].Translate(new Vector3(0f, -y, -z));
-                //fdr2trans[i].Translate(new Vector3(0f, -y, -z));
-                //fdr3trans[i].Translate(new Vector3(0f, -y, -z));
-                //fdr4trans[i].Translate(new Vector3(0f, -y, -z));
-                fdr1trans[i].localPosition += new Vector3(0f, -y, -z);
-                fdr2trans[i].localPosition += new Vector3(0f, -y, -z);
-                fdr3trans[i].localPosition += new Vector3(0f, -y, -z);
-                fdr4trans[i].localPosition += new Vector3(0f, -y, -z);
-            /*}
-            else
-            {
-                //fdr1trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                //fdr2trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                //fdr3trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                //fdr4trans[i].Translate(new Vector3(0f, -y * 3.5f, -z/1.2f));
-                fdr1trans[i].localPosition += new Vector3(0f, -hy, -hz);
-                fdr2trans[i].localPosition += new Vector3(0f, -hy, -hz);
-                fdr3trans[i].localPosition += new Vector3(0f, -hy, -hz);
-                fdr4trans[i].localPosition += new Vector3(0f, -hy, -hz);
-            }*/
+            fdr1trans[i].localPosition += new Vector3(0f, -y, -z);
+            fdr2trans[i].localPosition += new Vector3(0f, -y, -z);
+            fdr3trans[i].localPosition += new Vector3(0f, -y, -z);
+            fdr4trans[i].localPosition += new Vector3(0f, -y, -z);
             fdr1trans[i].Rotate(new Vector3(-xrot, 0f, 0f));
             fdr2trans[i].Rotate(new Vector3(-xrot, 0f, 0f));
             fdr3trans[i].Rotate(new Vector3(-xrot, 0f, 0f));
@@ -709,21 +671,21 @@ public class dominoes : MonoBehaviour
         }
     }
 
+    private string TwitchHelpMessage = "Interact with the dominoes by using !{0} 1234. The dominoes are listed from left to right.";
 
-
-    /*KMSelectable[] ProcessTwitchCommand(string command)
+     IEnumerator ProcessTwitchCommand(string command)
     {
-        command = command.ToLowerInvariant();
         char[] button = command.Replace("press", "").Replace(",", "").Replace(" ", "").ToCharArray();
         //".Any" returns any value that is true based on the lambda function. In this case, we want to make sure the char is between 1 and 4.
         //Since chars represent int values, subtracting '0' from a number represented by a char will return the proper number
         //InRange is an extension provided by the community - it can be found in GeneralExtensions.cs
-        if (!command.Contains("press") || button.Count() != 4 || button.Any(x => !(x - '0').InRange(1, 4))) return null;
+        if (!command.Contains("press") || button.Count() != 4 || button.Any(x => !(x - '0').InRange(1, 4))) yield break;
         List<KMSelectable> presses = new List<KMSelectable>();
         foreach (int num in button.Select(x => x - '0'))
         {
             presses.Add(maindoms[num - 1]);
         }
-        return presses.ToArray();
-    }*/
+        yield return null;
+        yield return presses.ToArray();
+    }
 }
