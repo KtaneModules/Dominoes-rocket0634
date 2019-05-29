@@ -675,17 +675,16 @@ public class dominoes : MonoBehaviour
 
      IEnumerator ProcessTwitchCommand(string command)
     {
-        char[] button = command.Replace("press", "").Replace(",", "").Replace(" ", "").ToCharArray();
+        char[] button = command.ToLowerInvariant().Replace("press", "").Replace(",", "").Replace(" ", "").ToCharArray();
         //".Any" returns any value that is true based on the lambda function. In this case, we want to make sure the char is between 1 and 4.
         //Since chars represent int values, subtracting '0' from a number represented by a char will return the proper number
         //InRange is an extension provided by the community - it can be found in GeneralExtensions.cs
-        if (!command.Contains("press") || button.Count() != 4 || button.Any(x => !(x - '0').InRange(1, 4))) yield break;
-        List<KMSelectable> presses = new List<KMSelectable>();
+        if (button.Count() != 4 || button.Any(x => !(x - '0').InRange(1, 4))) yield break;
+        yield return null;
         foreach (int num in button.Select(x => x - '0'))
         {
-            presses.Add(maindoms[num - 1]);
+            yield return new KMSelectable[] { maindoms[num - 1] };
+            yield return new WaitUntil(() => !dompressed);
         }
-        yield return null;
-        yield return presses.ToArray();
     }
 }
