@@ -46,29 +46,15 @@ public class dominoes : MonoBehaviour
 
         // Referencing domino press events to event handlers :
 
-        maindoms[0].OnInteract = delegate ()
+        for (int i = 0; i < maindoms.Count(); i++)
         {
-            DomOne();
-            return false;
-        };
-
-        maindoms[1].OnInteract = delegate ()
-        {
-            DomTwo();
-            return false;
-        };
-
-        maindoms[2].OnInteract = delegate ()
-        {
-            DomThree();
-            return false;
-        };
-
-        maindoms[3].OnInteract = delegate ()
-        {
-            DomFour();
-            return false;
-        };
+            var j = i;
+            maindoms[i].OnInteract = delegate ()
+            {
+                Dom(j);
+                return false;
+            };
+        }
     }
 
     // Use this for initialization
@@ -95,49 +81,16 @@ public class dominoes : MonoBehaviour
 
     bool[] DomPressed = new bool[4];
 
-    void DomOne()
+    void Dom(int num)
     {
-        if (DomPressed[0] == false && dompressed == false)
+        if (DomPressed[num] == false && dompressed == false)
         {
-            StartCoroutine("ToppleDominoes", 1);
-            userinput += 1;
-            Debug.LogFormat("[Dominoes #{0}] You pressed domino 1. ", _moduleId);
-            DomPressed[0] = true;
+            StartCoroutine("ToppleDominoes", num + 1);
+            userinput += num + 1;
+            Debug.LogFormat("[Dominoes #{0}] You pressed domino {1}. ", _moduleId, num + 1);
+            DomPressed[num] = true;
         }
 
-    }
-
-    void DomTwo()
-    {
-        if (DomPressed[1] == false && dompressed == false)
-        {
-            StartCoroutine("ToppleDominoes", 2);
-            userinput += 2;
-            Debug.LogFormat("[Dominoes #{0}] You pressed domino 2. ", _moduleId);
-            DomPressed[1] = true;
-        }
-    }
-
-    void DomThree()
-    {
-        if (DomPressed[2] == false && dompressed == false)
-        {
-            StartCoroutine("ToppleDominoes", 3);
-            userinput += 3;
-            Debug.LogFormat("[Dominoes #{0}] You pressed domino 3. ", _moduleId);
-            DomPressed[2] = true;
-        }
-    }
-
-    void DomFour()
-    {
-        if (DomPressed[3] == false && dompressed == false)
-        {
-            StartCoroutine("ToppleDominoes", 4);
-            userinput += 4;
-            Debug.LogFormat("[Dominoes #{0}] You pressed domino 4. ", _moduleId);
-            DomPressed[3] = true;
-        }
     }
 
 
@@ -149,7 +102,6 @@ public class dominoes : MonoBehaviour
         for (int i = 0; i < 8; i++)
         {
             rannum = UnityEngine.Random.Range(1, 7);
-            Debug.Log("Random number is: " + rannum);
             domnums[i] = rannum;
             maindomtxt[i].text = "";
             for (int j = 0; j < rannum; j++)
@@ -251,11 +203,6 @@ public class dominoes : MonoBehaviour
         }
         sortedansw.Sort();
 
-        foreach (int nums in sortedansw)
-        {
-            Debug.Log("---Sorted Answers : " + nums);
-        }
-
         if (Bomb.GetOnIndicators().Count() > Bomb.GetOffIndicators().Count())
         {
             Debug.LogFormat("[Dominoes #{0}] Ascending press order. More on ind than off ind. ", _moduleId);
@@ -265,30 +212,18 @@ public class dominoes : MonoBehaviour
         {
             sortedansw.Reverse();
             Debug.LogFormat("[Dominoes #{0}] Descending press order. More off ind than on ind. ", _moduleId);
-            Debug.Log("Reversed sorted answers, more off ind than on ind: ");
-            foreach (int nums in sortedansw)
-            {
-                Debug.Log("---REVind---Sorted Answers : " + nums);
-            }
         }
 
         else if (Bomb.GetSerialNumber()[2] % 2 == 0)
         {
             sortedansw.Reverse();
             Debug.LogFormat("[Dominoes #{0}] Descending press order. Serial No. in 3rd pos is even. ", _moduleId);
-            Debug.Log("Reversed sorted answers, serial No. in 3rd pos is even.");
-            Debug.Log("Serial No. ------ " + Bomb.GetSerialNumber()[2]);
-            foreach (int nums in sortedansw)
-            {
-                Debug.Log("---REVsrl---Sorted Answers : " + nums);
-            }
         }
 
         else
         {
             Debug.LogFormat("[Dominoes #{0}] Ascending press order. ", _moduleId);
         }
-        Debug.Log("Cereal Numboar -------------- " + Bomb.GetSerialNumber()[2]);
 
 
 
@@ -338,8 +273,7 @@ public class dominoes : MonoBehaviour
 
 
 
-
-        Debug.Log("Calctype is : " + calctype);
+        
         int j;
 
         for (int k = 0; k < 4; k++)
@@ -387,20 +321,10 @@ public class dominoes : MonoBehaviour
                         continue;
                     }
                 }
-                Debug.Log("Correct order so far (inner loop) is: " + correctpressorder + "  j is  " + j);
             }
-            Debug.Log("Correct order so far (outer loop) is: " + correctpressorder + "  j is  " + j);
         }
         Debug.LogFormat("[Dominoes #{0}] The correct press order is: {1}", _moduleId, correctpressorder);
-
-        for (int i = 0; i < 8; i++)
-        {
-            Debug.Log("DomNum's are " + domnums[i] + "  for position: " + (i + 1));
-        }
-        for (int i = 0; i < 4; i++)
-        {
-            Debug.Log("DomAnswers are " + domanswers[i] + "  for number  :" + (i + 1));
-        }
+        
     }
 
 
@@ -685,6 +609,18 @@ public class dominoes : MonoBehaviour
         {
             yield return new KMSelectable[] { maindoms[num - 1] };
             yield return new WaitUntil(() => !dompressed);
+        }
+    }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        var i = 0;
+        while (i < correctpressorder.Length)
+        {
+            while (dompressed)
+                yield return true;
+            maindoms[correctpressorder[i] - 1 - '0'].OnInteract();
+            i++;
         }
     }
 }
