@@ -16,7 +16,10 @@ MonoBehaviour:
   description: 'Dominoes v1.2 - Made by Alpha Male Extraordinare (Gee)
 
 
-    Idea by Blananas2'
+    Idea by Blananas2
+
+
+    Manual: https://ktane.timwi.de/HTML/Dominoes.html'
   version: 1.2
   outputFolder: build
   previewImage: {fileID: 2800000, guid: ffbb213c5388df54e8312c385881acc6, type: 3}
